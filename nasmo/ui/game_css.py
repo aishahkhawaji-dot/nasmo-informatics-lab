@@ -153,4 +153,5 @@ GAME_CSS = r"""
 .nl-ladder .rk .ri{display:block;font-size:26px;filter:grayscale(1);opacity:.6}.nl-ladder .rk small{display:block;font-size:11px}
 .nl-ladder .rk.on{color:var(--text)}.nl-ladder .rk.on .ri{filter:none;opacity:1}
 .nl-ladder .rk.cur{border-color:var(--gold);color:var(--ink);background:rgba(245,197,66,.14)}.nl-ladder .rk.cur .ri{filter:none;opacity:1;animation:nl-bob 2.4s infinite}
+@media (max-width:1100px){.nl-world .wfoot{flex-wrap:wrap;gap:6px 10px}.nl-world .nl-stars.sm i{font-size:13px}.nl-world .wname{font-size:19px}.nl-world .wmeta{font-size:12px}.st-key-worldmap::before{display:none}.nl-world{min-height:520px}}
 """

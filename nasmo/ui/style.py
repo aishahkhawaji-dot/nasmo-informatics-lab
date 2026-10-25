@@ -298,7 +298,7 @@ a.nl-topic:hover{border-color:var(--primary-2);transform:translateY(-2px)}
 /* ----------------------------------------------------------- responsive */
 @media (max-width:1250px){.nl-stage-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:900px){
-  .nl-header{padding:6px 10px;gap:8px}.nl-vsep{display:none}.nl-school{display:none}.nl-grow{display:block;flex:1 1 0}
+  .nl-header{padding:6px 10px 6px 68px;gap:8px}.nl-vsep{display:none}.nl-school{display:none}.nl-grow{display:block;flex:1 1 0}
   .nl-credit-text small{display:none}.nl-credit-text b{font-size:14px}.nl-teacher-badge{width:30px}
   .nl-logo-nasmo{width:36px;height:36px}.nl-logo-inst{height:36px}.nl-logos{gap:6px;padding:2px 6px}
   .nl-hero-shell,.st-key-hero{padding:26px 20px 22px;margin:12px 12px 0}.nl-hero{min-height:0}
@@ -308,7 +308,7 @@ a.nl-topic:hover{border-color:var(--primary-2);transform:translateY(-2px)}
     .nl-btn.ghost,.nl-btn.solid{min-width:0;width:100%}
   .nl-stage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media (max-width:560px){.nl-stage-grid{grid-template-columns:1fr}.nl-fl-note{font-size:12px}}
+@media (max-width:560px){.nl-stage-grid{grid-template-columns:1fr}.nl-fl-note{font-size:3cqw;padding:10% 4%;overflow-wrap:normal;word-break:normal}}
 
 /* gentle motion (switchable from the sidebar) */
 @keyframes nl-dots{to{background-position:60px 30px,0 0}}
@@ -336,25 +336,25 @@ html,body,.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{backg
 [data-testid="stSidebar"]{background:var(--side)!important;border-right:1px solid var(--line)}
 @media (min-width:1024px){[data-testid="stSidebar"]{min-width:300px!important;max-width:300px!important}}
 @media (max-width:1023px){
-  /* phones and tablets: the sidebar is our own slide-in drawer, opened by the round menu button (ui/menu.py) */
-  [data-testid="stSidebar"]{position:fixed!important;top:0!important;bottom:0!important;left:0!important;height:100dvh!important;margin:0!important;
-    width:min(310px,86vw)!important;min-width:0!important;max-width:86vw!important;z-index:1000002!important;
-    transform:translateX(-105%)!important;visibility:hidden!important;transition:transform .25s ease,visibility 0s .25s;overflow-y:auto!important;
-    box-shadow:0 0 40px rgba(10,4,60,.55)}
-  body.nl-open [data-testid="stSidebar"]{transform:none!important;visibility:visible!important;transition:transform .25s ease,visibility 0s}
-  [data-testid="stSidebarCollapseButton"],[data-testid="stSidebarHeader"]{display:none!important}
-  [data-testid="stSidebar"] [data-testid="stSidebarContent"]{padding-bottom:96px!important}
-  #nl-backdrop{display:none;position:fixed;inset:0;z-index:1000001;background:rgba(10,4,60,.55)}
-  body.nl-open #nl-backdrop{display:block}
+  /* phones and tablets: Streamlit's own sidebar (it slides over the page). Its open button lives in the toolbar we hide
+     on desktop, so here the toolbar is kept (without its menu / deploy actions) and the open button becomes a round button. */
+  [data-testid="stHeader"]{height:0!important;min-height:0!important;overflow:visible!important}
+  [data-testid="stToolbar"]{display:block!important;visibility:visible!important;height:0!important;min-height:0!important;background:transparent!important;overflow:visible!important}
+  [data-testid="stToolbarActions"],[data-testid="stMainMenu"],[data-testid="stAppDeployButton"],[data-testid="stStatusWidget"],.stDeployButton,#MainMenu{display:none!important}
+  [data-testid="stSidebarCollapsedControl"],[data-testid="stExpandSidebarButton"],[data-testid="collapsedControl"]{
+    display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:13px!important;bottom:auto!important;left:12px!important;
+    right:auto!important;z-index:1000003!important;width:48px!important;height:48px!important;min-width:0!important;border-radius:50%!important;
+    align-items:center;justify-content:center;padding:0!important;margin:0!important;color:#fff!important;
+    background:linear-gradient(135deg,#8a63e6,#5b34d6)!important;box-shadow:0 6px 18px rgba(40,22,130,.5)!important}
+  [data-testid="stSidebarCollapsedControl"] *,[data-testid="stExpandSidebarButton"] *,[data-testid="collapsedControl"] *{color:#fff!important;fill:#fff!important}
+  /* show a classic menu icon instead of the small arrow */
+  [data-testid="stExpandSidebarButton"] > *,[data-testid="stSidebarCollapsedControl"] button > *,[data-testid="collapsedControl"] button > *{display:none!important}
+  [data-testid="stExpandSidebarButton"]::after,[data-testid="stSidebarCollapsedControl"] button::after,[data-testid="collapsedControl"] button::after{content:"\2630";font-size:24px;line-height:1;color:#fff}
+  [data-testid="stSidebarCollapsedControl"] button,[data-testid="collapsedControl"] button{background:transparent!important;border:0!important;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+  [data-testid="stSidebar"]{max-width:86vw!important;position:fixed!important;top:0!important;bottom:0!important;left:0!important;z-index:1000002!important;box-shadow:0 0 40px rgba(10,4,60,.55)}
   /* never let the page scroll sideways */
   html,body,.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{overflow-x:hidden!important;max-width:100vw}
   [data-testid="stMainBlockContainer"]{padding-left:0!important;padding-right:0!important}
-}
-/* round menu button (added by ui/menu.py) */
-#nl-menu-fab,#nl-backdrop{display:none}
-@media (max-width:1023px){
-  #nl-menu-fab{display:flex;position:fixed;bottom:24px;left:14px;z-index:1000003;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;
-    align-items:center;justify-content:center;font-size:24px;line-height:1;color:#fff;background:linear-gradient(135deg,#8a63e6,#5b34d6);box-shadow:0 6px 18px rgba(40,22,130,.45)}
 }
 [data-testid="stSidebar"] > div:first-child{background:transparent!important}
 [data-testid="stSidebarContent"]{padding:14px 14px 18px!important}
